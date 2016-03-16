@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN-hans">
+<head>
+	<meta charset="UTF-8">
+	<title>弹窗</title>
+</head>
+<body>
+	<button type="button">点击</button>
+</body>
+<script src="dialog.js"></script>
+<script type="text/javascript">
+	document.getElementsByTagName('button')[0].addEventListener('click',function(){
+          var a=new Dialog({
+               width:'400px',
+               height:'200px',
+               title:'hello',
+               content:'world'
+          	});
+	},false);
+</script>
+</html>

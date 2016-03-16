@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sliderjs</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header id="header" class="header">Sliderjs</header>
+<div class="slide" id="slide">
+    <div class="slide-bd">
+        <ul>
+            <li><a href="#1"><img src="images/p1.jpg" alt=""/></a></li>
+            <li><a href="#2"><img src="images/p2.jpg" alt=""/></a></li>
+            <li><a href="#3"><img src="images/p3.jpg" alt=""/></a></li>
+            <li><a href="#4"><img src="images/p4.jpg" alt=""/></a></li>
+            <li><a href="#5"><img src="images/p5.jpg" alt=""/></a></li>
+            <li><a href="#6"><img src="images/p6.jpg" alt=""/></a></li>
+        </ul>
+    </div>
+</div>
+
+<script src="slider.js"></script>
+<script>
+    var slideWrap = document.getElementById('slide-2');
+
+    var slide = new Slider({
+        dom: slideWrap,
+        duration: 5000,
+        speed: 600,
+        effect: 'left',
+        isAutoPlay: true,
+        trigger: 'click',
+        pagination: true,
+        navigation: true,
+        pauseOnHover: true
+    });
+
+</script>
+
+</body>
+</html>

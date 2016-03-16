@@ -1,0 +1,25 @@
+{
+  "name": "silder",
+  "repo": "cationboy/silder",
+  "description": "image - silder for webapp",
+  "keywords": [
+    "image",
+    "silder",
+    "webapp"
+  ],
+  "version": "0.0.1",
+  "main": "silder.js",
+  "scripts": [
+    "silder.js"
+  ],
+  "files": [
+    "images/",
+    "arrow_left.png",
+    "arrow_right.png",
+    "silder.js",
+    "index.html"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT"
+}

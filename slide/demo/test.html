@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="a">
+		<div class="b">
+			
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+(function(){
+  /*var utils={
+  	polyfill:(function(){*/
+ if (!document.getElementsByClassName) {
+    document.getElementsByClassName = function (className) {
+        var result = [],
+              // Fetching all elements.
+              elements = document.getElementsByTagName('*'),
+              len = elements.length,
+              i,
+              node;
+        for (i = 0; i < len; i += 1) {
+            node = elements[i];
+            if ((' ' + (node.className || node.getAttribute('class')) + ' ').indexOf(' ' + className + ' ') >= 0) {
+                result.push(node);
+            }
+        }
+        return result;
+    };
+}
+  	/*})();
+  };*/
+  var b=document.getElementsByClassName('a')[0];
+  var a=b.getElementsByClassName('b')[0];
+  alert(a.className);
+})();
+/*
+http://blog.alexanderdickson.com/manipulating-classes-with-javascript
+http://html5doctor.com/the-classlist-api/
+http://javascript.boxsheep.com/polyfills/Array-prototype-forEach/
+*/
+</script>
+</html>

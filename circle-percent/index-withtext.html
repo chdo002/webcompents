@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN-hans">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css" media="screen">
+    #a{
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+function Pie(options){
+  this.id=options.id;
+  this.x=options.x;
+  this.y=options.y;
+  this.width=options.width;
+  this.height=options.height;
+  this.radius=options.radius;
+  this.data=options.data;
+  this.isLegend=options.isLegend;
+  this.init();
+}
+Pie.prototype={
+   init:function(){
+     this.create();
+     //var fun=this.isLegend?true:this.addLabel()||function(){};
+   },
+   create:function(){
+      var canvas=document.createElement('canvas');
+      canvas.id=this.id;
+      canvas.width=this.width;
+      canvas.height=this.height;
+      document.body.appendChild(canvas);
+      var ctx=document.getElementById(this.id).getContext('2d');
+      var total=0;
+      var startAngle=0;
+      var angle=0;
+      this.data.forEach(function(item){
+          total+=item.value;
+      });
+      var self=this;//缓存this
+      this.data.forEach(function(item){
+            angle=Math.PI*(2*item.value/total);
+            self.paint(item,ctx,total,startAngle,angle);
+            self.addData(item,ctx,startAngle,angle);
+             startAngle+=angle;
+      }); 
+   },
+   addData:function (item,ctx,startAngle,angle){
+        var fontSize=this.radius/10;
+        //var lradius=this.radius;
+        var dx=this.x+this.radius*Math.cos(startAngle+angle/2)/2-item.name.length*fontSize/2;
+        var dy=this.y+this.radius*Math.sin(startAngle+angle/2)/2;
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.fillStyle='#fff';
+        ctx.font=fontSize+'px';
+        ctx.fillText(item.name,dx,dy);
+        ctx.closePath();
+        ctx.fill();
+   },
+   paint:function(item,ctx,total,startAngle,angle){
+         ctx.beginPath();
+         ctx.moveTo(this.x,this.y);
+         ctx.arc(this.x,this.y,this.radius,startAngle,startAngle+angle,false);
+         ctx.lineTo(this.x,this.y);
+         ctx.fillStyle=item.color;
+         ctx.fill();
+     }
+};
+  var data=[
+   {
+    name:'ie',
+    value:20,
+    color:'black'
+   },
+   {
+     name:'chrome',
+     value:30,
+     color:'red'
+   },
+   {
+    name:'firfox',
+    value:50,
+    color:'grey'
+   },
+   {
+    name:'edge',
+    value:30,
+    color:'#455'
+   }
+];
+window.onload=function(){
+   var p=new Pie({
+    id:'a',
+    width:'300',
+    height:'300',
+    radius:'100',
+    x:100,
+    y:100,
+    data:data
+   });
+}
+</script>
+</html>

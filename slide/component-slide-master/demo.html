@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slide组件</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="slide.css"/>
+</head>
+<body>
+<div class="container">
+	<div class="prev"><<<<<</div>
+	<div class="slide clearfix" style="left:-600px;">
+		<img src="img/5.jpg" alt="5"/>
+		<img src="img/1.jpg" alt="1"/>
+		<img src="img/2.jpg" alt="2"/>
+		<img src="img/3.jpg" alt="3"/>
+		<img src="img/4.jpg" alt="4"/>
+		<img src="img/5.jpg" alt="5"/>
+		<img src="img/1.jpg" alt="1"/>
+	</div>
+	<div class="next">>>>>></div>
+</div>
+<script src="slide.js"></script>
+<script>
+	window.onload = function(){
+		var _translate = {
+			content:'slide',//传入滑动体
+			prev:'prev',//前进按钮
+			next:'next',//后退按钮
+			img:'container'//单张图片
+		}
+		new Slide(_translate);
+	}
+</script>
+</body>
+</html>

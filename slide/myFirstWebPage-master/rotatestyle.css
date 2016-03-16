@@ -1,0 +1,86 @@
+
+*{margin: 0;padding: 0;}
+#container
+{
+	position: relative;
+	width: 400px;
+	height: 300px;
+	overflow: hidden;
+	top:100px;
+	left: 200px;
+}
+#images
+{
+	width: 2000px;
+	height: 300px;
+	position: absolute;
+}
+#images img                          
+{
+	/*
+	float: left;            /*因为要排成一行，所以需要浮动
+	*/
+	
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	z-index: 1;
+}
+#circles
+{
+/*	border: 1px solid green;*/
+	position: absolute;
+	z-index: 2;
+	text-align: center;
+	bottom: 15px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	padding:auto 10px;
+}
+#circles span
+{
+	display: inline-block;                  /*一定要注意这个,否则没法使width生效*/
+	z-index: 2;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%;
+	background-color: rgba(0,0,0,0.3);
+	margin-right: 10px;
+}
+#circles span:hover
+{
+	height: 18px;
+	width: 18px;
+	background-color: rgba(255,255,255,0.7);
+	cursor: pointer;
+}
+
+#arrows a
+{
+	position: absolute;  
+	display: inline-block;                    
+	top: 50%;
+	margin-top: -36px;
+	z-index: 2;
+	background-color: rgba(0,0,0,0.05);
+}
+#arrows a:hover
+{
+	background-color: rgba(0,0,0,0.1);
+}
+#arrows a#leftarrow
+{
+	left: 0px;
+}
+#arrows a#rightarrow
+{
+	right: 0px;
+}
+
+#circles .current_circle
+{
+	height: 18px;
+	width: 18px;
+	background-color: rgb(255,51,51);
+}

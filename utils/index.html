@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	/*
+      **@params {string} 一些实用的方法，函数
+	*/
+	var utils={
+	trim:function(){
+		if (!String.prototype.trim) {
+           String.prototype.trim = function () {
+                return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+          };
+       }
+	},
+	forEach:function(){
+		if(!Array.prototype.forEach){
+			 Array.prototype.forEach = function (fn, arg) {
+                var arr = this,
+                    len = arr.length,
+                    thisArg = arg ? arg : undefined,
+                    i;
+               for (i = 0; i < len; i += 1) {
+                   if (arr.hasOwnProperty(i)) {
+                         fn.call(thisArg, arr[i], i, arr);
+                   }
+             }
+          return undefined;
+        };
+	}
+},
+    addClass:function(ele,cls){       
+        var classArr=cls.split(' ');//把以空格分开的类名分开，存为数组
+        for(var i=0,len=classArr.length;i<len;i++){
+        	if(!this.hasClass(ele,classArr[i])){
+        		ele.className+=' '+classArr[i];
+        	}
+        }
+    },
+    removeClass:function(ele,cls){//cls为一个或多个类名
+    	// cls中若删除多个类，中间以空格分开
+           var myClassArr=ele.className.split(' ');
+           var classArr=cls.split(' ');
+           for(var i=0,len=classArr.length;i<len;i++){
+               var k=myClassArr.indexOf(classArr[i]);
+               if(k!=-1){
+                  myClassArr.splice(k,1);
+               }
+           }
+           ele.className=myClassArr.join(' ');
+        },
+    toggle:function(ele,cls){//cls只能为一个类名
+         if(!this.hasClass(ele,cls)){
+              this.addClass(ele,cls);
+         }else{
+           this.removeClass(ele,cls);
+         }
+    },
+    hasClass:function(ele,cls){//cls只能为一个类名
+    	this.trim();
+    	var classArr=ele.className.split(' ');
+        classArr.forEach(function(item){
+        	item=item.trim();
+        })
+        /*删除数组中为空的元素*/
+        cls=cls.trim();
+        if(classArr.indexOf(cls)!=-1){
+        	return true;
+        }
+        return false;
+    }
+   };
+</script>
+</html>
