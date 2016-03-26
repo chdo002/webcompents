@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css" media="screen">
+		img{
+			border: 1px solid red;
+		}
+	</style>
+</head>
+<body>
+	<img src="http://1.yuhuo.sinaapp.com/1.jpg" alt="">
+</body>
+<script type="text/javascript">
+var img=document.getElementsByTagName('img')[0];
+/**
+ * a,b,c,d 四点分别代表矩形的四个坐标，p点代表小三角顶点的坐标
+ * 默认小三角为等边三角形，所以不要让小三角顶点距离太远，以免出现小三角的底边长大于矩形的边长
+ * r代表圆角半径，num代表小三角嵌在哪条边上，按逆时针顺序分别为1,2,3
+ * 另注意，这几个点的坐标指的是在被切割图片上的位置
+ */
+var a={
+	x:100,
+	y:100
+};
+var b={
+	x:100,
+	y:200
+};
+var c={
+	x:200,
+	y:200
+};
+var d={
+	x:200,
+	y:100
+};
+var p={
+	x:150,
+	y:220
+};
+var r=20,num=2;
+function makeTopLeftPos(r,x,y){
+  var angle,rx,ry,a,b;var arr=[];item={};
+  var len=2000;
+  for(var i=0;i<len+1;i++){
+      angle=i/len*Math.PI/2;
+      rx=x-r*Math.sin(angle);
+      ry=y-r*Math.cos(angle);
+      item.x=rx;
+      item.y=ry;
+      arr.push({x:rx,y:ry});
+  }
+  return arr;
+}
+function makeTopRightPos(){
+	var arr=makeTopLeftPos(r,a.x+r,a.y+r);
+	var newArr=[];
+	var rx,ry;
+	for(var i=0,len=arr.length;i<len;i++){
+		rx=d.x+a.x-arr[i].x;
+		ry=arr[i].y;
+		newArr.push({x:rx,y:ry});
+	}
+	newArr.reverse();
+	return newArr;
+}
+function makeBottomLeftPos(){
+	var arr=makeTopLeftPos(r,a.x+r,a.y+r);
+	var newArr=[];
+	var rx,ry;
+	for(var i=0,len=arr.length;i<len;i++){
+		ry=c.y+a.y-arr[i].y;
+		rx=arr[i].x;
+		newArr.push({x:rx,y:ry});
+	}
+	newArr.reverse();
+	return newArr;
+}
+function makeBottomRightPos(){
+	var arr=makeTopRightPos();
+	var newArr=[];
+	var rx,ry;
+	for(var i=0,len=arr.length;i<len;i++){
+		ry=c.y+d.y-arr[i].y;
+		rx=arr[i].x;
+		newArr.push({x:rx,y:ry});
+	}
+	newArr.reverse();
+	return newArr;
+}
+function makeTrigonPos(num){
+	var x=p.x;
+	var y=p.y;
+	var trigonPos=[];
+	switch(num){
+        case 1: trigonPos=[{x:a.x,y:y-0.577*(a.x-x)},{x:x,y:y},{x:a.x,y:y+0.577*(a.x-x)}];break;
+        case 2: trigonPos=[{x:x-0.577*(y-b.y),y:b.y},{x:x,y:y},{x:x+0.577*(y-b.y),y:b.y}];break;
+        case 3: trigonPos=[{x:c.x,y:y-0.577*(x-c.x)},{x:x,y:y},{x:c.x,y:y+0.577*(x-c.x)}];break;
+        default:
+        trigonPos=[{x:c.x,y:y-0.577*(x-c.x)},{x:x,y:y},{x:c.x,y:y+0.577*(x-c.x)}];break;
+	}
+	var arr=trigonPos.map(function(item){
+		return item.x+'px'+' '+item.y+'px';
+	});
+	return arr;
+}
+function makeAllParams(){
+	var arr1=makeTopLeftPos(r,a.x+r,a.y+r).map(function(item){
+		return item.x+'px'+' '+item.y+'px';
+	});
+	var arr2=makeBottomLeftPos().map(function(item){
+		return item.x+'px'+' '+item.y+'px';
+	});
+	var arr3=makeBottomRightPos().map(function(item){
+		return item.x+'px'+' '+item.y+'px';
+	});
+	var arr4=makeTopRightPos().map(function(item){
+		return item.x+'px'+' '+item.y+'px';
+	});
+	var arr=[arr1,arr2,arr3,arr4];
+	console.log(makeTrigonPos(num));
+	arr.splice(num,0,makeTrigonPos(num));
+	console.log(arr);
+	var params=arr.join(',');
+	img.style.webkitClipPath='polygon('+params+')';
+}
+makeAllParams();
+</script>
+</html>
